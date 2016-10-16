@@ -24,7 +24,7 @@ As in index.php file:
 
 OR by using addCard Function
 
-<?php
+	<?php
 
 	include_once("api/initialize.php");
 
@@ -36,7 +36,7 @@ OR by using addCard Function
 
 	echo $trip->sortTrip();
 
-?>
+	?>
 
 
 It should output sorted list.
