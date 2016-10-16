@@ -1,0 +1,192 @@
+<?php
+/**
+ * Disallow direct access to the file
+ */
+defined('APPLICATION_LOADED') OR exit('No direct script access allowed');
+
+/**
+ * Cards Class, Contains the boarding cards informations.
+ *
+ * @package		propertyfinder devtest
+ * @author		Salih Maoui
+ *
+  * @property-read array $vehicule
+  *
+  * @property-read array $vehiculeNumber
+  *
+  * @property-read array $departureLocation
+  *
+  * @property-read array $arrivalLocation
+  *
+  * @property-read array $seat
+  *
+  * @property-read array $gate
+  *
+  * @property-read array $counter   
+ */
+
+class Cards
+{
+  /**
+   * $vehicule Local variable for property (Means of transportation)
+   * @property-read string $vehicule
+   */
+  private $vehicule = '';
+
+  /**
+   * $vehiculeNumber Local variable for property
+   * @property-read string $vehiculeNumber
+   */
+  private $vehiculeNumber = '';
+  /**
+   * $departureLocation Local variable for property  (Departing point)
+   * @property-read string $departureLocation
+   */
+  private $departureLocation = '';
+  /**
+   * $arrivalLocation Local variable for property (Arrival point)
+   * @property-read string $arrivalLocation
+   */
+  private $arrivalLocation = '';
+  /**
+   * $seat Local variable for property   (The Seat number)
+   * @property-read string $seat
+   */
+  private $seat = '';
+  /**
+   * $gate Local variable for property  (The Gate number)
+   * @property-read string $gate
+   */
+  private $gate = '';
+  /**
+   * $counter Local variable for property   (The Counter number)
+   * @property-read string $counter
+   */
+  private $counter = '';
+
+  /**
+   * Cards Constructor
+   * @param string $vehicule          Means of transportation for a boarding card
+   * @param string $departureLocation Departing point for a boarding card
+   * @param string $arrivalLocation   Arrival point for a boarding card
+   * @param string $seat              The Seat number for a boarding card
+   * @param string $vehiculeNumber    Tranport engine number for a boarding card
+   * @param string $gate              The gate number for a boarding card
+   * @param string $counter           Baggage drop at ticket counter
+   */
+  function __construct($vehicule ="",  $departureLocation="", $arrivalLocation="", $seat="",$vehiculeNumber="", $gate="", $counter="")
+  {
+    $this->vehicule = $vehicule;
+    $this->vehiculeNumber = $vehiculeNumber;
+    $this->departureLocation = $departureLocation;
+    $this->arrivalLocation = $arrivalLocation;
+    $this->seat = $seat;
+    $this->gate = $gate;
+    $this->counter = $counter;
+  }
+
+  /**
+   * getVehicule Take the value from Cards object and return the Vehicule value
+   * @param  Cards $obj
+   * @return Stirng      Return means of transportation for any boarding card
+   */
+  public static function getVehicule($obj)
+  {
+    return $obj->vehicule;
+  }
+
+  /**
+   * getVehiculeNumber Take the value from Cards object and return the Vehicule number value
+   * @param  Cards $obj
+   * @return Stirng      Return (flight number, bus number etc) for any boarding card
+   */
+
+  public static function getVehiculeNumber($obj)
+  {
+    return $obj->vehiculeNumber;
+  }
+
+  /**
+   * getSeat Take the value from Cards object and return the Seat number value
+   * @param  Cards $obj
+   * @return Stirng      Return the seat for any boarding card
+   */
+
+
+  public static function getSeat($obj)
+  {
+    return $obj->seat;
+  }
+
+  /**
+   * getGate Take the value from Cards object and return the Gate number value
+   * @param  Cards $obj
+   * @return Stirng      Return the gate for any boarding card
+   */
+
+  public static function getGate($obj)
+  {
+    return $obj->gate;
+  }
+
+  /**
+   * getarrivalLocation Take the value from Cards object and return arrival Location value
+   * @param  Cards $obj
+   * @return Stirng      Return the arrival Location for any boarding card
+   */
+
+
+  public static function getarrivalLocation($obj)
+  {
+    return $obj->arrivalLocation;
+  }
+
+  /**
+   * getDepartureLocation Take the value from Cards object and return Departure Location value
+   * @param  Cards $obj
+   * @return Stirng      Return the Departure Location for any boarding card
+   */
+  public static function getDepartureLocation($obj)
+  {
+    return $obj->departureLocation;
+  }
+
+
+  /**
+   * getCounter Take the value from Cards object and return Counter value
+   *
+   * @param  Cards $obj
+   * @return Stirng      Return the counter for any boarding card
+   */
+
+  public static function getCounter($obj)
+	{
+		return $obj->counter;
+	}
+
+  /**
+   * Converts an object of Cards into readable instruction set.
+   */
+  public function toString()
+  {
+
+    switch ($this->vehicule) {
+      case 'train':
+        return 'Take train ' . self::getVehiculeNumber($this) . ' from ' . self::getDepartureLocation($this) . ' to ' . self::getarrivalLocation($this) . '. Sit in seat ' . self::getSeat($this) . '.';
+        break;
+
+      case 'bus':
+        return 'Take the airport bus from ' . self::getDepartureLocation($this) . ' to ' . self::getarrivalLocation($this) . '. ' . (self::getSeat($this) ? 'Sit in seat ' . self::getSeat($this) . '.' : 'No seat assignment.');
+      break;
+
+      case 'flight':
+    		return 'From ' . self::getDepartureLocation($this) . ', take flight ' . self::getVehiculeNumber($this) . ' to ' . self::getarrivalLocation($this) . '. Gate ' . self::getGate($this) . ', seat ' . self::getSeat($this) . '. ' . (self::getCounter($this) ? 'Baggage drop at ticket counter ' .
+               self::getCounter($this) . '.' : 'Baggage will be automatically transferred from your last leg.');
+      break;
+    }
+
+
+  }
+}
+?>
+

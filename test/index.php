@@ -1,0 +1,86 @@
+<?php
+
+define('APPLICATION_LOADED', true );
+
+/**
+ * Include initialize.php file to initialize trip sorter.
+ */
+
+include_once("../api/initialize.php");
+
+echo "<h2>The Test</h2>";
+
+echo "<h3>Boarding Card Test</h3>";
+echo "==================================================================";
+echo "<p><b>Boarding Card <bus> Test</b></p>                                  ";
+echo "==================================================================<br>";
+echo "Should print: 'Vehicule: bus' ,'Departure: Barcelona', 'Arrival:Gerona Airport' <br><br>";
+echo "<p>Code:<br> <code>  print_r(new Cards('bus','Barcelona', 'Gerona Airport')); </code></p>";
+echo "Result:</br>";
+echo "<pre>";
+print_r(  new Cards("bus",'Barcelona', 'Gerona Airport'));
+echo "</pre>";
+echo "==================================================================<br>";
+
+echo "<p><b>Boarding Card <Train> Test</b></p>                                  ";
+echo "==================================================================<br>";
+echo "Should print: 'Vehicule: Train' ,'Departure: Madrid', 'Arrival:Barcelona', 'VehiculeNumber:78A', 'Seat: 45B' <br><br>";
+echo "<p>Code:<br> <pre><code> print_r(new Cards('train','Madrid', 'Barcelona', '45B', '78A')); </code></pre></p>";
+echo "Result:</br>";
+echo "<pre>";
+print_r( new Cards("train",'Madrid', 'Barcelona', '45B', '78A'));
+echo "</pre>";
+echo "==================================================================<br>";
+
+
+echo "<p><b>Boarding Card <Flight> Test</b></p>                                  ";
+echo "==================================================================<br>";
+echo "Should print: 'Vehicule: flight' ,'Departure: Stockholm', 'Arrival:New York JFK', 'VehiculeNumber:SK22', 'Seat: 7B', 'Gate:22' <br><br>";
+echo "<p>Code:<pre> <code> print_r(new Cards('flight', 'Stockholm', 'New York JFK', '7B', 'SK22', '22')); </code></pre></p>";
+echo "Result:</br>";
+echo "<pre>";
+print_r(new Cards("flight", 'Stockholm', 'New York JFK', '7B', 'SK22', '22'));
+echo "</pre>";
+echo "==================================================================<br>";
+
+
+echo "<p><b>Boarding Card <Flight> Test</b></p>                                  ";
+echo "==================================================================<br>";
+echo "Should print: <br><br>";
+
+echo "<pre>";
+echo "
+1.Take train 78A from Madrid to Barcelona. Sit in seat 45B.<br>
+2.Take the airport bus from Barcelona to Gerona Airport. No seat assignment.<br>
+3.From Gerona Airport, take flight SK455 to Stockholm. Gate 45B, seat 3A. Baggage drop at ticket counter 344.<br>
+4.From Stockholm, take flight SK22 to New York JFK. Gate 22, seat 7B. Baggage will be automatically transferred from your last leg.<br>
+5.You have arrived at your final destination.<br>
+
+<br><br>";
+echo "</pre>";
+echo '<p>Code:<br><pre> <code> $trip = new Trip([
+    new Cards("bus","Barcelona", "Gerona Airport"),
+    new Cards("train","Madrid", "Barcelona", "45B", "78A"),
+    new Cards("flight", "Stockholm", "New York JFK", "7B", "SK22", "22")
+  ]);
+$trip->addCard(new Cards("flight", "Gerona Airport", "Stockholm", "3A", "SK455", "45B", "344"));
+
+echo $trip->sortTrip(); </code></pre></p>';
+
+echo "Result:</br>";
+echo "<pre>";
+
+
+
+$trip = new Trip([
+    new Cards("bus",'Barcelona', 'Gerona Airport'),
+    new Cards("train",'Madrid', 'Barcelona', '45B', '78A'),
+    new Cards("flight", 'Stockholm', 'New York JFK', '7B', 'SK22', '22')
+  ]);
+$trip->addCard(new Cards("flight", 'Gerona Airport', 'Stockholm', '3A', 'SK455', '45B', '344'));
+
+echo $trip->sortTrip();
+echo "</pre>";
+echo "==================================================================<br>";
+
+?>

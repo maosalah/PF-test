@@ -1,0 +1,21 @@
+<?php
+
+
+
+/**
+ * Include initialize.php file to initialize trip sorter.
+ */
+
+include_once("api/initialize.php");
+
+$trip = new Trip([
+    new Cards("bus",'Barcelona', 'Gerona Airport'),
+    new Cards("train",'Madrid', 'Barcelona', '45B', '78A'),
+    new Cards("flight", 'Stockholm', 'New York JFK', '7B', 'SK22', '22')
+  ]);
+
+$trip->addCard(new Cards("flight", 'Gerona Airport', 'Stockholm', '3A', 'SK455', '45B', '344'));
+
+echo $trip->sortTrip();
+
+?>
